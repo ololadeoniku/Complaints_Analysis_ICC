@@ -38,7 +38,12 @@ def get_input(input_file):
             if row["Complaint ID"] not in duplicate_complaint_id:
                 c_id = row["Complaint ID"]
                 date = row["Date received"]
-                year = datetime.strptime(date, "%m/%d/%Y").year
+                try:
+                    year = datetime.strptime(date, "%m/%d/%Y").year
+                except ValueError as e:
+                    print(e)
+                    if e:
+                        year = datetime.strptime(date, "%Y-%m-%d").year
                 product = row["Product"].lower()
                 company = row["Company"]
                 num_coy = 0
